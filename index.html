@@ -16,9 +16,30 @@
     </p>
 
     <script>
-        $(window).on("load",function(){
-            $(".loader-container").fadeOut(1000);
-        });
+
+        loader();
+        function loader(_success) {
+            var obj = document.querySelector('.loader-container'),
+            inner = document.querySelector('.loader'),
+            page = document.querySelector('body');
+            obj.classList.add('show');
+            page.classList.remove('show');
+            var w = 0,
+                t = setInterval(function() {
+                    w = w + 1;
+                    inner.textContent = w+'%';
+                    if (w === 100){
+                        obj.classList.remove('show');
+                        page.classList.add('show');
+                        clearInterval(t);
+                        w = 0;
+                        if (_success){
+                            return _success();
+                        }
+                    }
+                }, 20);
+        }
+
     </script>
 </body>
 </html>
